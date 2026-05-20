@@ -152,7 +152,7 @@ isn't worth fixing.</p>
         <item>
             <title><![CDATA[Closing the Loop: From Audit to Ten Commits in Four Hours]]></title>
             <link>https://vibescoder.dev/posts/closing-the-loop-from-audit-to-ten-commits</link>
-            <guid>https://vibescoder.dev/posts/closing-the-loop-from-audit-to-ten-commits</guid>
+            <guid>https://vibescoder.dev/posts/closing-the-loop-from-audit-to-ten-commits#reimport-v2</guid>
             <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Three AI agents audited the blog and produced three different reports. Closing them out was its own job — triage, phasing, verification, and ten commits across two repos with zero build failures. Here's the remediation arc, what shipped, what got deferred, and what the process revealed about working through someone else's audit.]]></description>
             <content:encoded><![CDATA[<p>I asked three AI agents to audit this blog — two Opus variants and a local Qwen 3.5 — in three separate Coder Agents chat sessions, with the same prompt. A few hours later, three reports landed in my inbox. They overlapped on some findings, disagreed on others, and each caught at least one thing the others missed. A combined 90+ findings, of which maybe 15 were actionable, of which exactly one was a <em>go fix it right now</em> emergency.</p>
@@ -641,7 +641,7 @@ return constant_time_equal(a, b)
         <item>
             <title><![CDATA[Thursday Thoughts: The Models We Can't Run]]></title>
             <link>https://vibescoder.dev/posts/thursday-thoughts-the-models-we-cant-run</link>
-            <guid>https://vibescoder.dev/posts/thursday-thoughts-the-models-we-cant-run</guid>
+            <guid>https://vibescoder.dev/posts/thursday-thoughts-the-models-we-cant-run#reimport-v2</guid>
             <pubDate>Thu, 14 May 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[DeepSeek V4-Pro, V4-Flash, and Zyphra ZAYA1 are three of the most exciting new models in local AI. None of them run on our RTX 5090 homelab — for completely different reasons. Here's the research, the math, and what it means for anyone building a local inference rig.]]></description>
             <content:encoded><![CDATA[<p>Every week or two, a model drops that makes the local AI community lose its collective mind. This week it was three at once: <strong>DeepSeek V4-Pro</strong>, <strong>DeepSeek V4-Flash</strong>, and <strong>Zyphra ZAYA1-8B</strong>. All three are genuinely impressive. All three are models I wanted to benchmark on our homelab. And after doing the research, I'm not testing any of them.</p>
