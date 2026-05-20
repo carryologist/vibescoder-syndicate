@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Vibes Coder</title>
+        <link>https://vibescoder.dev/</link>
+        <description>Building in public with AI agents. A technical blog by Rob Whiteley, CEO of Coder.</description>
+        <lastBuildDate>Wed, 20 May 2026 00:24:56 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>vibescoder.dev</generator>
+        <atom:link href="https://vibescoder.dev/syndicate.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Showdown Thoughts: The Three-Pass Pattern]]></title>
+            <link>https://vibescoder.dev/posts/showdown-thoughts-the-three-pass-pattern</link>
+            <guid>https://vibescoder.dev/posts/showdown-thoughts-the-three-pass-pattern</guid>
+            <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[The Round 5 bakeoff produced four implementations. None of them shipped. What shipped was a merge of the best pieces from all four, then a polish pass against real data. Bakeoff → Merge → Polish is a generalizable pattern for any feature where the design space is genuinely unclear.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Closing the Loop: From Audit to Ten Commits in Four Hours]]></title>
+            <link>https://vibescoder.dev/posts/closing-the-loop-from-audit-to-ten-commits</link>
+            <guid>https://vibescoder.dev/posts/closing-the-loop-from-audit-to-ten-commits</guid>
+            <pubDate>Mon, 18 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Three AI agents audited the blog and produced three different reports. Closing them out was its own job — triage, phasing, verification, and ten commits across two repos with zero build failures. Here's the remediation arc, what shipped, what got deferred, and what the process revealed about working through someone else's audit.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Model Showdown Round 5: Four Agents Build the Same Feature]]></title>
+            <link>https://vibescoder.dev/posts/model-showdown-round-5-four-agents-build-the-same-feature</link>
+            <guid>https://vibescoder.dev/posts/model-showdown-round-5-four-agents-build-the-same-feature</guid>
+            <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Four LLM models built the same admin feature in isolated Coder Agents sessions. I judged them blind. The headline result: Sonnet 4.6 beat Opus 4.6 on a coding task. The deeper story is what each model did with the same prompt — and what it took to make the bakeoff fair in the first place.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Thursday Thoughts: The Models We Can't Run]]></title>
+            <link>https://vibescoder.dev/posts/thursday-thoughts-the-models-we-cant-run</link>
+            <guid>https://vibescoder.dev/posts/thursday-thoughts-the-models-we-cant-run</guid>
+            <pubDate>Thu, 14 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[DeepSeek V4-Pro, V4-Flash, and Zyphra ZAYA1 are three of the most exciting new models in local AI. None of them run on our RTX 5090 homelab — for completely different reasons. Here's the research, the math, and what it means for anyone building a local inference rig.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Spring Cleaning Your Vibe Coded Apps]]></title>
+            <link>https://vibescoder.dev/posts/spring-cleaning-your-vibe-coded-apps</link>
+            <guid>https://vibescoder.dev/posts/spring-cleaning-your-vibe-coded-apps</guid>
+            <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[I pointed a current-gen AI agent at a fitness tracker I vibe coded a year ago. Five PRs later: security holes patched, a 1,300-line component broken apart, sync queries batched, and accessibility fixed. Here's what the audit found, how it was structured, and why every vibe coded app deserves a spring cleaning.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[The Fix That Was Fixed Four Times]]></title>
+            <link>https://vibescoder.dev/posts/the-fix-that-was-fixed-four-times</link>
+            <guid>https://vibescoder.dev/posts/the-fix-that-was-fixed-four-times</guid>
+            <pubDate>Tue, 12 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A second user joined the homelab Coder instance and couldn't push to GitHub. What looked like a missing config turned into five chained problems, a domain migration aftershock, an agent-debugging-an-agent meta-moment, and the discovery that the same credential helper bug had been "fixed" four times in ten days — and never actually deployed.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Model Showdown Round 4: Opus vs Qwen — Writers, Not Coders]]></title>
+            <link>https://vibescoder.dev/posts/model-showdown-round-4-opus-vs-qwen-as-writers-not-coders</link>
+            <guid>https://vibescoder.dev/posts/model-showdown-round-4-opus-vs-qwen-as-writers-not-coders</guid>
+            <pubDate>Mon, 11 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Two AI models got the same prompt: review the blog fodder, check for redundancy, and draft a post. Opus chose a debugging war story. Qwen chose a data-driven redesign. Neither picked the same fodder. Here's what the difference reveals about how models think about content.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[The API That Wouldn't Say No]]></title>
+            <link>https://vibescoder.dev/posts/the-api-that-wouldnt-say-no</link>
+            <guid>https://vibescoder.dev/posts/the-api-that-wouldnt-say-no</guid>
+            <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Building a Dev.to cross-posting system for vibescoder.dev — and the four hours spent debugging an API that silently swallows your data without a single error message.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Thursday Thought: Chat is the New Source Code]]></title>
+            <link>https://vibescoder.dev/posts/thursday-thought-chat-is-the-new-source-code</link>
+            <guid>https://vibescoder.dev/posts/thursday-thought-chat-is-the-new-source-code</guid>
+            <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[As AI agents make code generation trivial, the real value shifts from storing source code to preserving the chat conversations that created it.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Invisible Failures: The Bugs That Hide in Plain Sight]]></title>
+            <link>https://vibescoder.dev/posts/invisible-failures-the-bugs-that-hide-in-plain-sight</link>
+            <guid>https://vibescoder.dev/posts/invisible-failures-the-bugs-that-hide-in-plain-sight</guid>
+            <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Four bugs that were silently breaking things for days: a deploy that only crashes on new images, a shell guard that eats your auth tokens, a publish date frozen at draft creation, and a homelab with no emergency remote access. Plus: capacity planning for when you're running AI workspaces on a single machine.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Your AI Strategy Has a Blind Spot: An SEO and AEO Audit of vibescoder.dev]]></title>
+            <link>https://vibescoder.dev/posts/your-ai-strategy-has-a-blind-spot</link>
+            <guid>https://vibescoder.dev/posts/your-ai-strategy-has-a-blind-spot</guid>
+            <pubDate>Sat, 02 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A deep audit of vibescoder.dev revealed that Cloudflare was silently blocking every major AI crawler — even after we'd explicitly turned that setting off. Here's what we found, what we fixed, and the complete playbook for making your site visible to both search engines and AI agents.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Thursday Thoughts: Agents Are My New Google Maps]]></title>
+            <link>https://vibescoder.dev/posts/thursday-thoughts-agents-are-my-new-google-maps</link>
+            <guid>https://vibescoder.dev/posts/thursday-thoughts-agents-are-my-new-google-maps</guid>
+            <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[How AI agents are transforming software development the same way Google Maps revolutionized travel - making the impossible feel effortless and opening up new worlds of exploration.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[The Agentic Gap: Claude Oneshots, Gemma Fails]]></title>
+            <link>https://vibescoder.dev/posts/the-agentic-gap-claude-oneshots-gemma-fails</link>
+            <guid>https://vibescoder.dev/posts/the-agentic-gap-claude-oneshots-gemma-fails</guid>
+            <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[We pitted Gemma 4 against Opus 4.6 on a real feature build for vibescoder.dev. Gemma is the fastest model in our benchmark. It also couldn't finish the job. Here's what happened when we stopped testing toy apps and started building production code.]]></description>
+        </item>
+    </channel>
+</rss>
