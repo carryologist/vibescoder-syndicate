@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Vibes Coder</title>
+    <link>https://vibescoder.dev</link>
+    <description>Building in public with AI agents</description>
+    <item>
+            <title><![CDATA[Thursday Thoughts: How AI-Native Mirrors Cloud-Native]]></title>
+            <link>https://vibescoder.dev/posts/thursday-thoughts-how-ai-native-mirrors-cloud-native</link>
+            <guid>substack-import-jun4-2026-ai-native-mirrors-cloud-native</guid>
+            <pubDate>Thu, 04 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[At a C-suite roundtable in Palo Alto last week, ten-plus executives from a mix of gaming platforms, enterprise systems providers, job sites, and other Bay Area titans landed on the same analogy without being prompted: we've seen this before. The lift-and-shift era of AI is already here. The native era — where you redesign workflows from scratch for agents, not humans — is what comes next.]]></description>
+            <content:encoded><![CDATA[<p>Last week I attended a C-suite roundtable in Palo Alto with ten executives from the usual smattering of Bay Area titans — a gaming platform, a large systems provider, a major job site, and others. The intent was to get concrete signal on where enterprises are with AI. We got quite a lot of pontificating and waxing poetic. All typical with CxOs. And, candidly, more useful for me. When executives stop being concrete, they start being honest about the shape of the problem.</p>
+<p>Two things landed hard.</p>
+<h2>Everyone acknowledged agents are already in production without guardrails</h2>
+<p>This came up without us even raising it. Governance — who controls what agents can do, how you audit what they did, how you stop a runaway workflow — was the topic of the room. Not a topic. The topic.</p>
+<p>That's validating in a specific way: the thing that feels like an edge concern when you're deep in the tooling turns out to be the exact thing keeping senior people up at night once they're actually running agents against real systems. The gap between "we deployed an agent" and "we have any idea what it's doing" is apparently wider than most companies expected.</p>
+<h2>The cloud-native analogy clicked for the whole room</h2>
+<p>This one I want to dwell on, because I think it's the clearest frame I've found for where we are.</p>
+<p>When enterprises first moved to the cloud, most of them did lift-and-shift. They took their existing workloads — unchanged, same architecture, same assumptions — and ran them on AWS instead of on-prem. You got some cost benefits, some flexibility. But you weren't really using the cloud. You were renting someone else's servers.</p>
+<p>The transformation that actually mattered came later, when teams started redesigning applications <em>for</em> the cloud. Microservices instead of monoliths. Event-driven architectures. Stateless services that scaled horizontally. Those apps weren't better versions of the old apps. They were different apps, built around what the cloud made possible.</p>
+<p>We are doing the exact same thing with AI right now.</p>
+<p>The lift-and-shift era of AI is: take a human workflow, hand it to an agent, and call it automation. An agent fills out the form. An agent reads the documents. An agent follows the process someone designed for a person to follow. You get some productivity gains. But you're running the old workload on new infrastructure.</p>
+<p>The AI-native era — which these executives were all saying we're about to enter — is when you stop asking "how do we get an agent to do this human task?" and start asking "what would this workflow look like if we designed it for agents at scale from the beginning?" The answer is usually not a faster version of the old thing. It's a different thing.</p>
+<h2>The roles question is the one nobody's answered yet</h2>
+<p>Cloud-native didn't just change how applications were built. It created entirely new job categories. DevOps didn't exist before the cloud forced a rethink of how you deploy and operate software. SREs emerged because reliability at cloud scale required a different discipline than ops at on-prem scale. The new architecture required new ways of working around it.</p>
+<p>The executives in that room were unanimous that the same thing is coming with AI — AI ops, ML ops, whatever we end up calling the people who manage, audit, and operate agent-native workflows — but nobody in the room had actually built those functions yet. They know they need them. They haven't invented them.</p>
+<p>That gap is interesting. It means the companies that figure out the operating model — not just the technology — are going to have a real edge. The architecture is the easier part. The organizational design is where most enterprises are still staring at a blank page.</p>
+<h2>The business model shift is the wildcard</h2>
+<p>One thing from the conversation that's still rattling around: the cloud era was about doing things better, faster, cheaper. The same metrics, just improved. What the executives were saying about AI is different — that it's going to force a change in <em>how companies measure themselves</em>, not just how efficient they are.</p>
+<p>Revenue per employee came up specifically. The argument being: once your workforce is partly human and partly agentic, headcount-normalized metrics stop making sense, and you need metrics that account for what your agents are doing alongside your people. Revenue per employee captures the full capacity of the team, human and agent. Do you break out human versus AI employees? TBD. The consensus was yes, but I think even that will normalize.</p>
+<p>That's a bigger shift than any of the technology. Business model changes outlast technology cycles.</p>
+<hr>
+<p>The roundtable ended with a lot of good conversation and connections. But the frame that stuck with me is: we've been through this before. Cloud-native looked impossible from the lift-and-shift era and obvious in retrospect. AI-native probably looks the same from where we're standing now.</p>
+<p>The lift-and-shift phase isn't a mistake — it's how you learn the infrastructure well enough to rethink the architecture. Just don't stop there.</p>]]></content:encoded>
+        </item>
+  </channel>
+</rss>
