@@ -1,0 +1,166 @@
+name: Sync Substack Feed
+
+on:
+  schedule:
+    # Every 30 minutes. Vercel deploys take ~60-90s after content push,
+    # so worst-case a new post is picked up within 30 min of publishing.
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Manual trigger after publishing a syndicate:true post
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout mirror repo
+        uses: actions/checkout@v4
+
+      - name: Fetch live syndicate feed
+        id: fetch
+        run: |
+          set -euo pipefail
+
+          HTTP_CODE=$(curl -sL --fail --retry 3 --retry-delay 10 \
+            -w '%{http_code}' \
+            -o /tmp/live-syndicate.xml \
+            https://vibescoder.dev/syndicate.xml) || true
+
+          if [ ! -s /tmp/live-syndicate.xml ]; then
+            echo "Failed to fetch live feed (HTTP $HTTP_CODE). Skipping."
+            echo "has_feed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LIVE_COUNT=$(grep -c '<item>' /tmp/live-syndicate.xml)
+          echo "Live feed: $LIVE_COUNT posts (HTTP $HTTP_CODE)"
+          echo "has_feed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Detect new posts
+        if: steps.fetch.outputs.has_feed == 'true'
+        id: detect
+        run: |
+          set -euo pipefail
+
+          # Extract slugs from GUIDs, stripping #reimport fragments
+          grep '<guid>' syndicate.xml \
+            | sed 's|.*<guid>||;s|</guid>.*||;s|#.*||' \
+            | sort > /tmp/mirror-slugs.txt
+
+          grep '<guid>' /tmp/live-syndicate.xml \
+            | sed 's|.*<guid>||;s|</guid>.*||;s|#.*||' \
+            | sort > /tmp/live-slugs.txt
+
+          # New = in live but not in mirror
+          comm -23 /tmp/live-slugs.txt /tmp/mirror-slugs.txt > /tmp/new-slugs.txt
+
+          NEW_COUNT=$(wc -l < /tmp/new-slugs.txt | tr -d ' ')
+          echo "New posts: $NEW_COUNT"
+
+          if [ "$NEW_COUNT" -eq 0 ]; then
+            echo "Mirror is up to date."
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "New posts to sync:"
+            cat /tmp/new-slugs.txt
+            echo "has_new=true" >> "$GITHUB_OUTPUT"
+            echo "new_count=$NEW_COUNT" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update syndicate.xml and generate single-import
+        if: steps.detect.outputs.has_new == 'true'
+        run: |
+          set -euo pipefail
+
+          # --- 1. Preserve existing GUID busts ---
+          grep -oP '<guid>\K[^<]+#[^<]*' syndicate.xml > /tmp/busted-guids.txt 2>/dev/null || true
+
+          # --- 2. Replace syndicate.xml with live version ---
+          cp /tmp/live-syndicate.xml syndicate.xml
+
+          # --- 3. Re-apply GUID busts ---
+          if [ -s /tmp/busted-guids.txt ]; then
+            while IFS= read -r busted_guid; do
+              base_url="${busted_guid%%#*}"
+              sed -i "s|<guid>${base_url}</guid>|<guid>${busted_guid}</guid>|" syndicate.xml
+            done < /tmp/busted-guids.txt
+            echo "Re-applied $(wc -l < /tmp/busted-guids.txt) GUID busts"
+          fi
+
+          echo "Updated syndicate.xml: $(grep -c '<item>' syndicate.xml) posts"
+
+          # --- 4. Generate single-import.xml ---
+          # Substack dedupes per feed URL, so new posts MUST use
+          # single-import.xml with a unique GUID to bypass the cache.
+          IMPORT_TS=$(date -u +%Y%m%d-%H%M%S)
+
+          # Take the last new slug (most recent post by sort order)
+          LAST_SLUG=$(tail -1 /tmp/new-slugs.txt)
+          POST_SLUG=$(basename "$LAST_SLUG")
+
+          python3 -c "
+          import re, sys
+
+          slug = sys.argv[1]
+          import_ts = sys.argv[2]
+          post_slug = sys.argv[3]
+
+          content = open('/tmp/live-syndicate.xml').read()
+          pattern = r'(<item>.*?' + re.escape(slug) + r'.*?</item>)'
+          match = re.search(pattern, content, re.DOTALL)
+          if not match:
+              print(f'ERROR: no item found for {slug}', file=sys.stderr)
+              sys.exit(1)
+
+          item = match.group(1)
+          item = re.sub(
+              r'<guid>.*?</guid>',
+              f'<guid>substack-import-{import_ts}-{post_slug}</guid>',
+              item
+          )
+
+          feed = '''<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+          <rss version=\"2.0\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\">
+            <channel>
+              <title>Vibes Coder</title>
+              <link>https://vibescoder.dev</link>
+              <description>Building in public with AI agents</description>
+          ''' + item + '''
+            </channel>
+          </rss>'''
+          print(feed)
+          " "$LAST_SLUG" "$IMPORT_TS" "$POST_SLUG" > single-import.xml
+
+          echo "Generated single-import.xml for: $POST_SLUG"
+
+      - name: Commit and push
+        if: steps.detect.outputs.has_new == 'true'
+        run: |
+          git config user.name "substack-sync[bot]"
+          git config user.email "noreply@vibescoder.dev"
+          git add syndicate.xml single-import.xml
+          git commit -m "sync: add ${{ steps.detect.outputs.new_count }} new post(s) for Substack import"
+          git push
+
+      - name: Summary with import URL
+        if: steps.detect.outputs.has_new == 'true'
+        run: |
+          echo "## Substack Sync Complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**New posts:** ${{ steps.detect.outputs.new_count }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          while IFS= read -r slug; do
+            echo "- \`$(basename "$slug")\`" >> "$GITHUB_STEP_SUMMARY"
+          done < /tmp/new-slugs.txt
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Import to Substack" >> "$GITHUB_STEP_SUMMARY"
+          echo "1. Go to **Substack Dashboard → Settings → Import posts**" >> "$GITHUB_STEP_SUMMARY"
+          echo "2. Paste:" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "https://raw.githubusercontent.com/carryologist/vibescoder-syndicate/main/single-import.xml" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "3. Confirm the import" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: No changes
+        if: steps.detect.outputs.has_new != 'true' && steps.fetch.outputs.has_feed == 'true'
+        run: echo "Mirror is up to date. No new syndicate posts." >> "$GITHUB_STEP_SUMMARY"
