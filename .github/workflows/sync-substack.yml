@@ -21,8 +21,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          HTTP_CODE=$(curl -sL --fail --retry 3 --retry-delay 10 \
+          # Use a real user-agent — Vercel's WAF blocks default curl
+          # from GitHub Actions IP ranges (returns 403).
+          HTTP_CODE=$(curl -sL --retry 3 --retry-delay 10 \
             -w '%{http_code}' \
+            -A 'vibescoder-syndicate-bot/1.0 (+https://github.com/carryologist/vibescoder-syndicate)' \
             -o /tmp/live-syndicate.xml \
             https://vibescoder.dev/syndicate.xml) || true
 
